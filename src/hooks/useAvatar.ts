@@ -1,42 +1,48 @@
-import { useState } from "react"
+import { useEffect, useRef, type RefObject } from "react"
+import { useAssets } from "../context/AssetContext"
 
-export default function useAvatar (name: string): string {
-  const [avatarUrl, setAvatarUrl] = useState<string>('')
+const avatarCache: Record<string, string> = {}
 
-  if (!name)
-    return ''
+export default function useAvatar (name: string): RefObject<string> {
+  const avatarUrl = useRef<string>('')
+  const { assets, loading } = useAssets()
 
-  // map name into 0~35 (for skin) and 0~31 (for accessory)
-  const skinIndex = name
-    .split('')
-    .reduce((acc, char) => acc + char.charCodeAt(0), 0) % 36
-  const accessoryIndex = name
-    .split('')
-    .reduce((acc, char) => acc + char.charCodeAt(0) * 7, 0) % 32
+  useEffect(() => {
+    if (loading) return
 
-  // get assets
-  const skin = `/avatar/skin/skin${skinIndex.toString().padStart(2, '0')}.png`
-  const accessory = `/avatar/top/top${accessoryIndex.toString().padStart(2, '0')}.png`
+    if (!name)
+      avatarUrl.current = ''
 
-  // combine image
+    const skinIndex = name
+      .split('')
+      .reduce((acc, char) => acc + char.charCodeAt(0), 0) % 36
 
-  const skinImage = new Image()
-  skinImage.src = skin
-  const accessoryImage = new Image()
-  accessoryImage.src = accessory
+    const accessoryIndex = name
+      .split('')
+      .reduce((acc, char) => acc + char.charCodeAt(0) * 7, 0) % 31
 
-  const canvas = document.createElement('canvas')
-  canvas.width = 640
-  canvas.height = 640
-  const ctx = canvas.getContext('2d')
+    const cacheKey = `${skinIndex}-${accessoryIndex}`
 
-  skinImage.onload = () => {
-    accessoryImage.onload = () => {
+    console.log('name: ', name, 'key: ', cacheKey)
+
+    if (avatarCache[cacheKey]) {
+      console.log('Avatar loaded from cache:', cacheKey)
+      avatarUrl.current = avatarCache[cacheKey]
+    } else {
+      const skinImage = assets[`skin${skinIndex.toString().padStart(2, '0')}`]
+      const accessoryImage = assets[`top${accessoryIndex.toString().padStart(2, '0')}`]
+
+      const canvas = document.createElement('canvas')
+      canvas.width = 640
+      canvas.height = 640
+      const ctx = canvas.getContext('2d')
+
       ctx?.drawImage(skinImage, 0, 0, 640, 640)
       ctx?.drawImage(accessoryImage, 0, 0, 640, 640)
-      setAvatarUrl(canvas.toDataURL())
+      avatarCache[cacheKey] = canvas.toDataURL()
+      avatarUrl.current = avatarCache[cacheKey]
     }
-  }
+  }, [name, assets, loading])
 
   return avatarUrl
 }
