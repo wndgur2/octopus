@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-type AssetMap = Record<string, HTMLImageElement>
+type AssetMap = Record<string, HTMLImageElement | HTMLAudioElement>
 
 type AssetContextType = {
   assets: AssetMap

@@ -29,8 +29,8 @@ export default function useAvatar (name: string): RefObject<string> {
       console.log('Avatar loaded from cache:', cacheKey)
       avatarUrl.current = avatarCache[cacheKey]
     } else {
-      const skinImage = assets[`skin${skinIndex.toString().padStart(2, '0')}`]
-      const accessoryImage = assets[`top${accessoryIndex.toString().padStart(2, '0')}`]
+      const skinImage = assets[`skin${skinIndex.toString().padStart(2, '0')}`] as HTMLImageElement
+      const accessoryImage = assets[`top${accessoryIndex.toString().padStart(2, '0')}`] as HTMLImageElement
 
       const canvas = document.createElement('canvas')
       canvas.width = 640
