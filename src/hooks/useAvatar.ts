@@ -5,13 +5,10 @@ const avatarCache: Record<string, string> = {}
 
 export default function useAvatar (name: string): RefObject<string> {
   const avatarUrl = useRef<string>('')
-  const { assets, loading } = useAssets()
+  const { images, loading } = useAssets()
 
   useEffect(() => {
     if (loading) return
-
-    if (!name)
-      avatarUrl.current = ''
 
     const skinIndex = name
       .split('')
@@ -23,14 +20,11 @@ export default function useAvatar (name: string): RefObject<string> {
 
     const cacheKey = `${skinIndex}-${accessoryIndex}`
 
-    console.log('name: ', name, 'key: ', cacheKey)
-
     if (avatarCache[cacheKey]) {
-      console.log('Avatar loaded from cache:', cacheKey)
       avatarUrl.current = avatarCache[cacheKey]
     } else {
-      const skinImage = assets[`skin${skinIndex.toString().padStart(2, '0')}`] as HTMLImageElement
-      const accessoryImage = assets[`top${accessoryIndex.toString().padStart(2, '0')}`] as HTMLImageElement
+      const skinImage = images[`skin${skinIndex.toString().padStart(2, '0')}`] as HTMLImageElement
+      const accessoryImage = images[`top${accessoryIndex.toString().padStart(2, '0')}`] as HTMLImageElement
 
       const canvas = document.createElement('canvas')
       canvas.width = 640
@@ -42,7 +36,7 @@ export default function useAvatar (name: string): RefObject<string> {
       avatarCache[cacheKey] = canvas.toDataURL()
       avatarUrl.current = avatarCache[cacheKey]
     }
-  }, [name, assets, loading])
+  }, [name, images, loading])
 
   return avatarUrl
 }
