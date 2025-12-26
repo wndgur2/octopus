@@ -50,6 +50,23 @@ export const BackgroundProvider = ({ children }: Props) => {
     if (images[key]) setBgImage(images[key])
   }
 
+  function LoadingScreen() {
+    const { progress } = useAssets()
+    return (
+      <div
+        className={`absolute flex items-center justify-center inset-0 bg-black flex-col text-white ${
+          interacted && progress === 100 ? 'hidden' : 'flex'
+        }`}
+        onClick={() => setInteracted(true)}
+      >
+        <h2>Loading...</h2>
+        <progress value={progress} max={100} />
+        <p>{progress}%</p>
+        {progress === 100 && <p>press anywhere to continue</p>}
+      </div>
+    )
+  }
+
   return (
     <BackgroundContext.Provider
       value={{
@@ -73,6 +90,7 @@ export const BackgroundProvider = ({ children }: Props) => {
       >
         {children}
       </div>
+      <LoadingScreen />
     </BackgroundContext.Provider>
   )
 }
