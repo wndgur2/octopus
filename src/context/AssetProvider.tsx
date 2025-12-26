@@ -11,8 +11,6 @@ export const AssetProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(true)
   const [progress, setProgress] = useState(0)
 
-  const [muteSoundEffects, setMuteSoundEffects] = useState(false)
-
   useEffect(() => {
     const loadAll = async () => {
       const imageEntries = [
@@ -65,21 +63,6 @@ export const AssetProvider = ({ children }: Props) => {
     loadAll()
   }, [])
 
-  function playSoundEffect(key: string) {
-    if (loading) return
-    if (muteSoundEffects) return
-
-    const sound = sounds[key]
-    if (!sound) return
-
-    const soundClone = sound.cloneNode() as HTMLAudioElement
-    soundClone.play()
-  }
-
-  function muteSoundEffectsToggle() {
-    setMuteSoundEffects((prev) => !prev)
-  }
-
   return (
     <AssetContext.Provider
       value={{
@@ -87,8 +70,6 @@ export const AssetProvider = ({ children }: Props) => {
         sounds,
         loading,
         progress,
-        playSoundEffect,
-        muteSoundEffectsToggle,
       }}
     >
       {children}

@@ -1,12 +1,15 @@
 import { AssetProvider } from './context/AssetProvider'
 import { BackgroundProvider } from './context/BackgroundProvider'
+import EffectProvider from './context/EffectProvider'
 import Routes from './routes'
 
 function App() {
   return (
     <AssetProvider>
       <BackgroundProvider>
-        <Routes />
+        <EffectProvider>
+          <Routes />
+        </EffectProvider>
       </BackgroundProvider>
     </AssetProvider>
   )

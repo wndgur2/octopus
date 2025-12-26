@@ -5,8 +5,6 @@ type AssetContextType = {
   sounds: Record<string, HTMLAudioElement>
   loading: boolean
   progress: number // 0–100
-  playSoundEffect: (key: string) => void
-  muteSoundEffectsToggle: () => void
 }
 
 export const AssetContext = createContext<AssetContextType | null>(null)
