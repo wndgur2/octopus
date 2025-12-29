@@ -1,3 +1,5 @@
+import Card from './Card'
+
 interface Props {
   className?: string
   onClick?: () => void
@@ -7,12 +9,12 @@ interface Props {
 
 export default function Button({ className, onClick, disabled, children }: Props) {
   return (
-    <button
-      className={`rounded-xl bg-transparent ${className} w-full lg:w-auto hover:cursor-pointer active:scale-95 transition-transform flex items-center justify-center gap-2`}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {children}
+    <button onClick={onClick} disabled={disabled}>
+      <Card
+        className={`rounded-xl bg-transparent ${className} w-full lg:w-auto hover:cursor-pointer active:scale-95 transition-transform flex items-center justify-center gap-2`}
+      >
+        {children}
+      </Card>
     </button>
   )
 }
