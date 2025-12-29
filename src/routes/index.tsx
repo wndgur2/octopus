@@ -6,11 +6,11 @@ import { ROUTES } from './ROUTES'
 const router = createBrowserRouter([
   {
     element: <HomePage />,
-    path: ROUTES.home,
+    path: ROUTES.HOME,
   },
   {
     element: <LobbyPage />,
-    path: ROUTES.lobby,
+    path: ROUTES.LOBBY,
   },
 ])
 

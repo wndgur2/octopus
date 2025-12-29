@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import logo from '../assets/images/logo/logo.png'
 import useAvatar from '../hooks/useAvatar'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../routes/ROUTES'
 import { useBackground } from '../context/BackgroundContext'
+import Icon from '../components/common/Icon'
+import Button from '../components/common/Button'
 
 export default function HomePage() {
   const [name, setName] = useState('')
   const avatarUrl = useAvatar(name)
   const { playMusic, setBackgroundImage } = useBackground()
+  const navigate = useNavigate()
   useEffect(() => {
     playMusic('lobby')
     setBackgroundImage('home-desktop')
@@ -27,9 +30,12 @@ export default function HomePage() {
         />
         <img src={avatarUrl} alt="Avatar" width={240} />
       </div>
-      <Link to={ROUTES.lobby} className="p-4 text-center bg-white w-full">
+      <Button className="p-4 bg-white" onClick={() => navigate(ROUTES.LOBBY)}>
         Go to Lobby
-      </Link>
+        <Icon name="group" />
+        <Icon name="close_small" />
+        <Icon name="arrow_forward" />
+      </Button>
     </div>
   )
 }
