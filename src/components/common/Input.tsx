@@ -6,14 +6,20 @@ interface Props {
   className?: string
 }
 
-export default function Input({ type = 'text', value, placeholder, onChange, className }: Props) {
+export default function Input({
+  type = 'text',
+  value,
+  placeholder,
+  onChange,
+  className,
+}: Props) {
   return (
     <input
       type={type}
       value={value}
       placeholder={placeholder}
       onChange={onChange}
-      className={className}
+      className={`px-4 py-3 md:px-6 md:py-4 text-base md:text-lg bg-white/25 rounded-xl ${className}`}
     />
   )
 }

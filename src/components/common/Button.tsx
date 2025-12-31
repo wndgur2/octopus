@@ -1,18 +1,40 @@
+import type { ReactNode } from 'react'
+
 import Card from './Card'
 
 interface Props {
+  icon?: ReactNode
+  size?: 'sm' | 'md' | 'lg'
   className?: string
   onClick?: () => void
   disabled?: boolean
-  children?: React.ReactNode
+  children?: ReactNode
+  type?: 'button' | 'submit' | 'reset'
 }
 
-export default function Button({ className, onClick, disabled, children }: Props) {
+export default function Button({
+  icon,
+  type = 'button',
+  size = 'md',
+  className,
+  onClick,
+  disabled,
+  children,
+}: Props) {
   return (
-    <button onClick={onClick} disabled={disabled}>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`bg-transparent overflow-hidden
+          ${size === 'sm' ? 'w-fit' : 'w-full'}
+        `}
+    >
       <Card
-        className={`w-full lg:w-auto active:scale-95 transition-transform flex items-center justify-center gap-2  ${className}`}
+        size={size}
+        className={`lg:w-auto active:scale-95 transition-transform flex items-center justify-center gap-4 ${className}`}
       >
+        {icon}
         {children}
       </Card>
     </button>

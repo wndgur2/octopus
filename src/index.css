@@ -4,14 +4,14 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
+  font-family: "Shantell Sans", cursive;
 
-  font-family: "Darumadrop One", sans-serif;
+  font-weight: 500;
 }
 
 #root {
   height: 100%;
 }
-
 
 /* 모달 애니메이션 */
 
@@ -46,4 +46,10 @@ div:has(>.fadeOut)>div:first-child {
 
 button {
   cursor: pointer;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
 }

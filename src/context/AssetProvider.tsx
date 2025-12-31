@@ -1,6 +1,12 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { avatarAssets, bgAssets, musicAssets, soundEffectsAssets } from '../assets'
-import { loadAudio, loadImage } from '../utils/loaders'
+
+import {
+  avatarAssets,
+  bgAssets,
+  musicAssets,
+  soundEffectsAssets,
+} from '@/assets'
+import { loadAudio, loadImage } from '@/utils/loaders'
 import { AssetContext } from './AssetContext'
 
 type Props = { children: ReactNode }
