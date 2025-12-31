@@ -9,12 +9,14 @@ import rank2 from '../assets/images/leaderboard/rank2.png'
 import rank3 from '../assets/images/leaderboard/rank3.png'
 import podium from '../assets/images/leaderboard/podium.png'
 
+import RankListItem from '../components/RankListItem'
+
 type Row = {
   id: string
   rank: number
   name: string
   score: number
-  avatarKey?: string // AssetProvider에서 로드된 avatarAssets key (예: 'skin00')
+  avatarKey?: string
 }
 
 const MOCK: Omit<Row, 'rank'>[] = [
@@ -22,7 +24,7 @@ const MOCK: Omit<Row, 'rank'>[] = [
   { id: '2', name: '박경완레전드', score: 4800, avatarKey: 'skin01' },
   { id: '3', name: '이중혁혁중이', score: 4750, avatarKey: 'skin02' },
   { id: '4', name: '김률아는추위를많이타', score: 500, avatarKey: 'skin03' },
-  { id: '5', name: '오렌지', score: 300, avatarKey: 'skin04' },
+  { id: '5', name: '오렌지', score: 300, avatarKey: '' },
   { id: '6', name: 'Valorant', score: 200, avatarKey: 'skin05' },
   { id: '7', name: 'HideOnBush', score: 200, avatarKey: 'skin06' },
   { id: '8', name: 'wndgur2', score: 200, avatarKey: 'skin07' },
@@ -35,26 +37,6 @@ function cn(...v: Array<string | false | null | undefined>) {
 
 function formatScore(n: number) {
   return n.toLocaleString()
-}
-
-function getRankIconSrc(rank: number) {
-  if (rank === 1) return rank1
-  if (rank === 2) return rank2
-  if (rank === 3) return rank3
-  return undefined // 4등 이하는 아이콘 없음
-}
-
-function RankIcon({ rank }: { rank: number }) {
-  const src = getRankIconSrc(rank)
-  if (!src) return <div className="w-9 h-9" />
-  return <img src={src} alt={`rank-${rank}`} className="w-9 h-9 object-contain" />
-}
-
-function Avatar({ name, img }: { name: string; img?: HTMLImageElement }) {
-  if (img) {
-    return <img src={img.src} alt={name} className="w-7 h-7 rounded-full object-cover" />
-  }
-  return <div className="w-7 h-7 rounded-full bg-black/15" />
 }
 
 export default function LeaderboardPage() {
@@ -91,14 +73,7 @@ export default function LeaderboardPage() {
 
   return (
     <div className="w-full h-full relative overflow-hidden">
-      {/* 배경 */}
-      {bg && (
-        <img
-          src={bg.src}
-          alt="background"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      )}
+      {bg && <img src={bg.src} alt="background" className="absolute inset-0 w-full h-full object-cover" />}
       <div className="absolute inset-0 bg-black/10" />
 
       <div className="relative z-10 w-full h-full flex items-center justify-center px-4">
@@ -114,8 +89,8 @@ export default function LeaderboardPage() {
             'max-h-[97vh]'
           )}
         >
-          {/* 상단 타이틀 바 */}
-          <div className="relative flex items-center justify-center">
+          {/* 타이틀 */}
+          <div className="relative flex items-center justify-center shrink-0">
             <div
               className={cn(
                 'h-10 w-full max-w-[320px]',
@@ -130,7 +105,6 @@ export default function LeaderboardPage() {
               <div className="text-[14px] font-semibold text-black/80">Leaderboard</div>
             </div>
 
-            {/* 우측 닫기 버튼 */}
             <Link
               to={ROUTES.lobby}
               className={cn(
@@ -147,15 +121,15 @@ export default function LeaderboardPage() {
             </Link>
           </div>
 
-          {/* 컬럼 헤더 */}
-          <div className="mt-4 grid grid-cols-[110px_1fr_110px] gap-3">
-            <div className="h-9 rounded-full bg-white/55 border border-white/60 flex items-center justify-center text-sm font-semibold text-black/70">
+          {/* 헤더 */}
+          <div className="mt-4 grid grid-cols-[110px_1fr_110px] gap-3 shrink-0">
+            <div className="h-9 rounded-full bg-white/55 border border-white/60 flex items-center justify-center text-sm font-semibold text-black/90">
               rank
             </div>
-            <div className="h-9 rounded-full bg-white/55 border border-white/60 flex items-center justify-center text-sm font-semibold text-black/70">
+            <div className="h-9 rounded-full bg-white/55 border border-white/60 flex items-center justify-center text-sm font-semibold text-black/90">
               player
             </div>
-            <div className="h-9 rounded-full bg-white/55 border border-white/60 flex items-center justify-center text-sm font-semibold text-black/70">
+            <div className="h-9 rounded-full bg-white/55 border border-white/60 flex items-center justify-center text-sm pl-1 font-semibold text-black/90">
               score
             </div>
           </div>
@@ -163,56 +137,24 @@ export default function LeaderboardPage() {
           {/* 리스트 */}
           <div className="mt-3 flex-1 pr-1">
             <div className="space-y-1">
-              {rows.map((r) => {
-                const avatarImg = r.avatarKey ? images[r.avatarKey] : undefined
-
-                return (
-                  <div
-                    key={r.id}
-                    className={cn(
-                      'h-[48px] rounded-[18px]',
-                      'bg-white/55 border border-white/65',
-                      'shadow-[0_8px_18px_rgba(0,0,0,0.10)]',
-                      'px-4 flex items-center'
-                    )}
-                  >
-                    <div className="w-[110px] flex items-center gap-3">
-                      <RankIcon rank={r.rank} />
-                      <div className="text-sm font-semibold text-black/70">{r.rank}</div>
-                    </div>
-
-                    <div className="flex-1 flex items-center min-w-0">
-                      <div
-                        className={cn(
-                          'h-8 px-3 rounded-full',
-                          'bg-sky-500/90',
-                          'border border-white/40',
-                          'shadow-sm',
-                          'flex items-center gap-2',
-                          'min-w-0'
-                        )}
-                      >
-                        <Avatar name={r.name} img={avatarImg} />
-                        <div className="text-sm font-semibold text-white truncate">{r.name}</div>
-                      </div>
-                    </div>
-
-                    <div
-                      className={cn(
-                        'w-[110px] pr-3 text-right text-sm tabular-nums',
-                        r.rank <= 3 ? 'font-bold text-black' : 'font-medium text-black/80'
-                      )}
-                    >
-                      {formatScore(r.score)}
-                    </div>
-                  </div>
-                )
-              })}
+              {rows.map((r) => (
+                <RankListItem
+                  key={r.id}
+                  id={r.id}
+                  rank={r.rank}
+                  name={r.name}
+                  scoreText={formatScore(r.score)}
+                  avatarImg={r.avatarKey ? images[r.avatarKey] : undefined}
+                  rank1Src={rank1}
+                  rank2Src={rank2}
+                  rank3Src={rank3}
+                />
+              ))}
             </div>
           </div>
 
           {/* 페이지네이션 */}
-          <div className="mt-4 flex items-center justify-center gap-3">
+          <div className="mt-3 flex items-center justify-center gap-3 shrink-0">
             <button
               type="button"
               onClick={() => setPage((p) => Math.max(1, p - 1))}
