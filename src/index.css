@@ -53,3 +53,7 @@ textarea:focus,
 select:focus {
   outline: none;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

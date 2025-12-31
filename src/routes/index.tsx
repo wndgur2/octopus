@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
+import HomeLayout from '@/layouts/HomeLayout'
 import RootLayout from '@/layouts/RootLayout'
 import HomePage from '@/pages/HomePage'
 import LobbyPage from '@/pages/LobbyPage'
@@ -10,12 +11,17 @@ const router = createBrowserRouter([
     Component: () => <RootLayout />,
     children: [
       {
-        element: <HomePage />,
-        path: ROUTES.HOME,
-      },
-      {
-        element: <LobbyPage />,
-        path: ROUTES.LOBBY,
+        Component: () => <HomeLayout />,
+        children: [
+          {
+            element: <HomePage />,
+            path: ROUTES.HOME,
+          },
+          {
+            element: <LobbyPage />,
+            path: ROUTES.LOBBY,
+          },
+        ],
       },
     ],
   },

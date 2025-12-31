@@ -4,7 +4,7 @@ import { ModalProvider, useModal } from 'sam-react-modal'
 export default function RootLayout() {
   return (
     <ModalProviderWrapper>
-      <div className="h-[100dvh] overflow-y-hidden scrollbar-none">
+      <div className='h-dvh w-dvw overflow-hidden no-scrollbar flex flex-col justify-center items-center'>
         <Outlet />
       </div>
     </ModalProviderWrapper>
@@ -33,11 +33,11 @@ function ModalProviderWrapper({ children }: { children: React.ReactNode }) {
           alignItems: 'center',
         },
       }}
-      beforeClose={async (ref) => {
+      beforeClose={async ref => {
         if (!ref?.current) return
         ref.current.classList.remove('fadeIn')
         ref.current.classList.add('fadeOut')
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
           setTimeout(() => {
             resolve()
           }, 300)
