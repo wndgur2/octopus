@@ -11,7 +11,12 @@ export default function LobbyPage() {
   return (
     <div>
       Lobby Page
-      <Link to={ROUTES.home}>Go to Home</Link>
+      <div>
+        <Link to={ROUTES.home}>Go to Home</Link>
+      </div>
+      <div>
+        <Link to={ROUTES.leaderboard}>Go to Leaderboard</Link>
+      </div>
     </div>
   )
 }

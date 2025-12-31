@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from '../pages/HomePage'
 import LobbyPage from '../pages/LobbyPage'
 import { ROUTES } from './ROUTES'
+import LeaderboardPage from '../pages/LeaderboardPage'
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     element: <LobbyPage />,
     path: ROUTES.lobby,
+  },
+  {
+    element: <LeaderboardPage />,
+    path: ROUTES.leaderboard,
   },
 ])
 
