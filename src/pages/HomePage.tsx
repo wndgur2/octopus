@@ -6,21 +6,28 @@ import { ROUTES } from '../routes/ROUTES'
 import { useBackground } from '../context/BackgroundContext'
 import Icon from '../components/common/Icon'
 import Button from '../components/common/Button'
+import { Border, Spacing, useModal } from 'sam-react-modal'
+import Img from '../components/common/Img'
+import Input from '../components/common/Input'
+import AlertModal from '../components/common/AlertModal'
+import ConfirmModal from '../components/common/ConfirmModal'
 
 export default function HomePage() {
   const [name, setName] = useState('')
   const avatarUrl = useAvatar(name)
   const { playMusic, setBackgroundImage } = useBackground()
   const navigate = useNavigate()
+  const { openModal } = useModal()
+
   useEffect(() => {
     playMusic('lobby')
     setBackgroundImage('home-desktop')
   })
   return (
     <div className="flex flex-col items-center gap-4">
-      <img src={logo} alt="Logo" style={{ width: '60dvw', minWidth: '320px', maxWidth: '640px' }} />
+      <Img src={logo} alt="Logo" className="w-[60dvw] min-w-[320px] max-w-[640px]" />
       <div className="flex items-center">
-        <input
+        <Input
           className="bg-white"
           type="text"
           value={name}
@@ -28,13 +35,31 @@ export default function HomePage() {
             setName(e.target.value)
           }}
         />
-        <img src={avatarUrl} alt="Avatar" width={240} />
+        <Img src={avatarUrl} alt="Avatar" width={240} />
       </div>
-      <Button className="p-4 bg-white" onClick={() => navigate(ROUTES.LOBBY)}>
+      <Border height={10} width={'100%'} className="bg-black" />
+      <Spacing />
+      <Border height={10} width={'100%'} className="bg-white" />
+      <Button onClick={() => navigate(ROUTES.LOBBY)}>
         Go to Lobby
         <Icon name="group" />
         <Icon name="close_small" />
         <Icon name="arrow_forward" />
+      </Button>
+      <Button
+        onClick={() => {
+          openModal(<AlertModal>alert ! </AlertModal>)
+        }}
+      >
+        open alert modal
+      </Button>
+      <Button
+        onClick={async () => {
+          if (await openModal(<ConfirmModal>confirm ! </ConfirmModal>)) alert('confirmed')
+          else alert('canceled')
+        }}
+      >
+        open confirm modal
       </Button>
     </div>
   )

@@ -1,10 +1,18 @@
+import { useModal } from 'sam-react-modal'
 import Button from './Button'
+import Modal from './Modal'
 
-export default function AlertModal() {
+interface Props {
+  children: React.ReactNode
+}
+
+export default function AlertModal({ children }: Props) {
+  const { closeModal } = useModal()
   return (
-    <div>
+    <Modal>
       <p>AlertModal</p>
-      <Button>Okay</Button>
-    </div>
+      <p>{children}</p>
+      <Button onClick={() => closeModal()}>Okay</Button>
+    </Modal>
   )
 }

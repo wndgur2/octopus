@@ -1,11 +1,32 @@
+import { useModal } from 'sam-react-modal'
 import Button from './Button'
+import Modal from './Modal'
 
-export default function ConfirmModal() {
+interface Props {
+  children: React.ReactNode
+}
+
+export default function ConfirmModal({ children }: Props) {
+  const { closeModal } = useModal()
+
   return (
-    <div>
+    <Modal>
       <p>ConfirmModal</p>
-      <Button>Cancel</Button>
-      <Button>Confirm</Button>
-    </div>
+      {children}
+      <Button
+        onClick={() => {
+          closeModal(false)
+        }}
+      >
+        Cancel
+      </Button>
+      <Button
+        onClick={() => {
+          closeModal(true)
+        }}
+      >
+        Confirm
+      </Button>
+    </Modal>
   )
 }
