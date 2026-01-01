@@ -7,7 +7,7 @@ export default function SettingButtons() {
   const { isMuted, muteMusicToggle } = useBackground()
   const { isMuted: isEffectMuted, muteSoundEffectToggle } = useEffects()
   return (
-    <div className='flex gap-4 w-full'>
+    <div className='grid grid-cols-3 gap-4 w-full'>
       <Button size='md'>
         <Icon name='translate' />
       </Button>

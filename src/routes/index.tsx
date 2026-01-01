@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import HomeLayout from '@/layouts/HomeLayout'
+import EntryLayout from '@/layouts/EntryLayout'
 import RootLayout from '@/layouts/RootLayout'
 import HomePage from '@/pages/HomePage'
 import LobbyPage from '@/pages/LobbyPage'
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     Component: () => <RootLayout />,
     children: [
       {
-        Component: () => <HomeLayout />,
+        Component: () => <EntryLayout />,
         children: [
           {
             element: <HomePage />,

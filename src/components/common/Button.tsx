@@ -26,13 +26,13 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`bg-transparent overflow-hidden
-          ${size === 'sm' ? 'w-fit' : 'w-full'}
+      className={`shrink-0 bg-transparent overflow-hidden
+          ${size === 'sm' ? 'w-fit' : 'w-full'} ${className}
         `}
     >
       <Card
         size={size}
-        className={`lg:w-auto active:scale-95 transition-transform flex items-center justify-center gap-4 ${className}`}
+        className={`lg:w-auto active:scale-95 transition-transform flex items-center justify-center gap-4`}
       >
         {icon}
         {children}
