@@ -12,6 +12,7 @@ import { AssetContext } from './AssetContext'
 type Props = { children: ReactNode }
 
 export const AssetProvider = ({ children }: Props) => {
+  // 기본 에셋
   const [images, setImages] = useState<Record<string, HTMLImageElement>>({})
   const [sounds, setSounds] = useState<Record<string, HTMLAudioElement>>({})
   const [loading, setLoading] = useState(true)
@@ -69,6 +70,10 @@ export const AssetProvider = ({ children }: Props) => {
     loadAll()
   }, [])
 
+  // 조합된 아바타
+
+  const [avatarCache, setAvatarCache] = useState<Record<string, string>>({})
+
   return (
     <AssetContext.Provider
       value={{
@@ -76,6 +81,8 @@ export const AssetProvider = ({ children }: Props) => {
         sounds,
         loading,
         progress,
+        avatarCache,
+        setAvatarCache,
       }}
     >
       {children}

@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react'
 
 import { useAssets } from './AssetContext'
-import { EffectContext } from './EffectContext'
+import { EffectsContext } from './EffectsContext'
 
 export default function EffectProvider({ children }: { children: ReactNode }) {
   const [muteSoundEffects, setMuteSoundEffects] = useState(false)
@@ -24,7 +24,7 @@ export default function EffectProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <EffectContext.Provider
+    <EffectsContext.Provider
       value={{
         isMuted: muteSoundEffects,
         playSoundEffect,
@@ -32,6 +32,6 @@ export default function EffectProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-    </EffectContext.Provider>
+    </EffectsContext.Provider>
   )
 }

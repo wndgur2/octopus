@@ -1,5 +1,5 @@
 import { useBackground } from '@/context/BackgroundContext'
-import { useEffects } from '@/context/EffectContext'
+import { useEffects } from '@/context/EffectsContext'
 import Button from './Button'
 import Icon from './Icon'
 

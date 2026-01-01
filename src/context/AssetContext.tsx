@@ -5,6 +5,8 @@ type AssetContextType = {
   sounds: Record<string, HTMLAudioElement>
   loading: boolean
   progress: number // 0–100
+  avatarCache: Record<string, string>
+  setAvatarCache: React.Dispatch<React.SetStateAction<Record<string, string>>>
 }
 
 export const AssetContext = createContext<AssetContextType | null>(null)

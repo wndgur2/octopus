@@ -6,10 +6,10 @@ type EffectContextType = {
   muteSoundEffectToggle: () => void
 }
 
-export const EffectContext = createContext<EffectContextType | null>(null)
+export const EffectsContext = createContext<EffectContextType | null>(null)
 
 export const useEffects = () => {
-  const ctx = useContext(EffectContext)
+  const ctx = useContext(EffectsContext)
   if (!ctx) throw new Error('useEffect must be used within EffectProvider')
   return ctx
 }
