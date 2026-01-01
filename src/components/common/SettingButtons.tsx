@@ -1,17 +1,21 @@
+import { useBackground } from '@/context/BackgroundContext'
+import { useEffects } from '@/context/EffectContext'
 import Button from './Button'
 import Icon from './Icon'
 
 export default function SettingButtons() {
+  const { isMuted, muteMusicToggle } = useBackground()
+  const { isMuted: isEffectMuted, muteSoundEffectToggle } = useEffects()
   return (
     <div className='flex gap-4 w-full'>
       <Button size='md'>
         <Icon name='translate' />
       </Button>
-      <Button size='md'>
-        <Icon name='volume_off' />
+      <Button size='md' onClick={() => muteMusicToggle()}>
+        <Icon name={isMuted ? 'music_off' : 'music_note'} />
       </Button>
-      <Button size='md'>
-        <Icon name='music_off' />
+      <Button size='md' onClick={() => muteSoundEffectToggle()}>
+        <Icon name={isEffectMuted ? 'volume_off' : 'volume_up'} />
       </Button>
     </div>
   )

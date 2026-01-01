@@ -15,7 +15,7 @@ interface Props {
 export default function Button({
   icon,
   type = 'button',
-  size = 'md',
+  size = 'lg',
   className,
   onClick,
   disabled,

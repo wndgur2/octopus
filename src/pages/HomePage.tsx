@@ -21,11 +21,12 @@ export default function HomePage() {
   })
   return (
     <>
-      <Card size='lg'>
+      <Card>
         <Form
           onSubmit={() => {}}
           className='flex flex-col items-center gap-4 md:gap-6'
         >
+          <p>Guest</p>
           <Input placeholder='Your name?' className='w-full' />
           <Button
             size='sm'
@@ -38,10 +39,7 @@ export default function HomePage() {
           </Button>
         </Form>
       </Card>
-      <Button
-        size='lg'
-        icon={<Img width={32} src={chzzkIcon} alt='Chzzk Icon' />}
-      >
+      <Button icon={<Img width={32} src={chzzkIcon} alt='Chzzk Icon' />}>
         Live Streamer
       </Button>
       <Spacing />

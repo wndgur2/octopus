@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react'
+
 import { useAssets } from './AssetContext'
 import { BackgroundContext } from './BackgroundContext'
 
@@ -8,7 +9,9 @@ export const BackgroundProvider = ({ children }: Props) => {
   const [bgImage, setBgImage] = useState<HTMLImageElement | null>(null)
 
   const [playingMusicKey, setPlayingMusicKey] = useState<string | null>(null)
-  const [playingMusic, setPlayingMusic] = useState<HTMLAudioElement | null>(null)
+  const [playingMusic, setPlayingMusic] = useState<HTMLAudioElement | null>(
+    null,
+  )
   const [muteMusic, setMuteMusic] = useState(false)
   const [interacted, setInteracted] = useState(false)
 
@@ -35,7 +38,7 @@ export const BackgroundProvider = ({ children }: Props) => {
   }
 
   function muteMusicToggle() {
-    setMuteMusic((prev) => {
+    setMuteMusic(prev => {
       const newMuteState = !prev
       if (newMuteState && playingMusic) {
         playingMusic.pause()
@@ -71,6 +74,7 @@ export const BackgroundProvider = ({ children }: Props) => {
     <BackgroundContext.Provider
       value={{
         interacted,
+        isMuted: muteMusic,
         setInteracted,
         playMusic,
         muteMusicToggle,
@@ -78,7 +82,7 @@ export const BackgroundProvider = ({ children }: Props) => {
       }}
     >
       <div
-        className="flex flex-col width-full height-full items-center"
+        className='flex flex-col width-full height-full items-center'
         style={{
           backgroundImage: bgImage ? `url(${bgImage.src})` : 'none',
           backgroundSize: 'cover',

@@ -19,15 +19,10 @@ export default function LobbyPage() {
   return (
     <>
       <Spacing />
-      <Button size='lg'>Random Room</Button>
-      <Button size='lg'>Use Room Code</Button>
-      <Button size='lg' onClick={() => navigate(ROUTES.HOME)}>
-        Go Home
-      </Button>
-      <Button
-        size='lg'
-        icon={<Img width={32} src={chzzkIcon} alt='Chzzk Icon' />}
-      >
+      <Button>Random Room</Button>
+      <Button>Use Room Code</Button>
+      <Button onClick={() => navigate(ROUTES.HOME)}>Go Home</Button>
+      <Button icon={<Img width={32} src={chzzkIcon} alt='Chzzk Icon' />}>
         Leaderboard
       </Button>
       <Spacing />

@@ -4,7 +4,7 @@ interface Props {
   className?: string
 }
 
-export default function Card({ size = 'md', children, className }: Props) {
+export default function Card({ size = 'lg', children, className }: Props) {
   return (
     <div
       className={`rounded-full bg-white/25 border border-white/45 backdrop-blur-[3px] ${className}

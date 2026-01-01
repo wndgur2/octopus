@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
-import { EffectContext } from './EffectContext'
+
 import { useAssets } from './AssetContext'
+import { EffectContext } from './EffectContext'
 
 export default function EffectProvider({ children }: { children: ReactNode }) {
   const [muteSoundEffects, setMuteSoundEffects] = useState(false)
@@ -19,11 +20,17 @@ export default function EffectProvider({ children }: { children: ReactNode }) {
   }
 
   function muteSoundEffectToggle() {
-    setMuteSoundEffects((prev) => !prev)
+    setMuteSoundEffects(prev => !prev)
   }
 
   return (
-    <EffectContext.Provider value={{ playSoundEffect, muteSoundEffectToggle }}>
+    <EffectContext.Provider
+      value={{
+        isMuted: muteSoundEffects,
+        playSoundEffect,
+        muteSoundEffectToggle,
+      }}
+    >
       {children}
     </EffectContext.Provider>
   )
