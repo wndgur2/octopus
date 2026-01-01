@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Spacing } from 'sam-react-modal'
 
@@ -8,17 +7,10 @@ import Card from '@/components/common/Card'
 import Form from '@/components/common/Form'
 import Img from '@/components/common/Img'
 import Input from '@/components/common/Input'
-import { useBackground } from '@/context/BackgroundContext'
 import { ROUTES } from '@/routes/ROUTES'
 
 export default function HomePage() {
-  const { playMusic, setBackgroundImage } = useBackground()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    playMusic('lobby')
-    setBackgroundImage('home-desktop')
-  })
   return (
     <>
       <Card>
