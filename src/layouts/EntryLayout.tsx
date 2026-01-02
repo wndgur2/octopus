@@ -11,7 +11,7 @@ export default function EntryLayout() {
 
   useEffect(() => {
     playMusic('lobby')
-    setBackgroundImage('home-desktop')
+    setBackgroundImage('home')
   })
 
   return (

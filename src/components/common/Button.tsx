@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { useEffects } from '@/context/EffectsContext'
 import Card from './Card'
 
 interface Props {
@@ -21,10 +22,15 @@ export default function Button({
   disabled,
   children,
 }: Props) {
+  const { playSoundEffect } = useEffects()
   return (
     <button
       type={type}
-      onClick={onClick}
+      onClick={e => {
+        e.stopPropagation()
+        onClick?.()
+        playSoundEffect(disabled ? 'toong' : size == 'lg' ? 'chung' : 'ddok!')
+      }}
       disabled={disabled}
       className={`shrink-0 bg-transparent overflow-hidden
           ${size === 'sm' ? 'w-fit' : 'w-full'} ${className}

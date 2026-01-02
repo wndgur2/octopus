@@ -12,10 +12,12 @@ export const BackgroundProvider = ({ children }: Props) => {
   const [playingMusic, setPlayingMusic] = useState<HTMLAudioElement | null>(
     null,
   )
-  const [muteMusic, setMuteMusic] = useState(false)
+  const [muteMusic, setMuteMusic] = useState(
+    Boolean(localStorage.getItem('muteMusic')),
+  )
   const [interacted, setInteracted] = useState(false)
 
-  const { images, sounds } = useAssets()
+  const { backgrounds, sounds } = useAssets()
 
   function playMusic(key: string) {
     if (!interacted) return
@@ -40,6 +42,7 @@ export const BackgroundProvider = ({ children }: Props) => {
   function muteMusicToggle() {
     setMuteMusic(prev => {
       const newMuteState = !prev
+      localStorage.setItem('muteMusic', newMuteState ? 'true' : '')
       if (newMuteState && playingMusic) {
         playingMusic.pause()
       } else if (!newMuteState && playingMusic) {
@@ -50,7 +53,8 @@ export const BackgroundProvider = ({ children }: Props) => {
   }
 
   function setBackgroundImage(key: string) {
-    if (images[key]) setBgImage(images[key])
+    const platform = window.innerWidth >= 768 ? 'desktop' : 'mobile'
+    if (backgrounds[platform][key]) setBgImage(backgrounds[platform][key])
   }
 
   function LoadingScreen() {
