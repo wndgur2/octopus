@@ -2,7 +2,6 @@
 date_started: 2025.11.05
 head_count: 2
 role: Full-stack
-thumbnail: https://github.com/user-attachments/assets/f6693d95-8245-49e2-b41b-991614701f63
 ---
 
 <img alt="Image" src="https://github.com/user-attachments/assets/f6693d95-8245-49e2-b41b-991614701f63" />
