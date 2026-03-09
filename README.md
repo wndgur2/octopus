@@ -1,4 +1,5 @@
 ---
+title: Find The Octopus
 date_started: 2025.11.05
 head_count: 2
 role: Full-stack
